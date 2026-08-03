@@ -1,4 +1,7 @@
 export const HomePage = () => {
+
+
+    
     return (
         <div className="home-page">
             <h1>Welcome to the Monster Energy Drink Store!</h1>
