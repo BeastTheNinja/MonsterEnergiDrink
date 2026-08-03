@@ -1,10 +1,10 @@
 import { getToken } from "./auth.service";
 
-export const getBlogs = async () => {
+export const getProducts = async () => {
     const token = getToken();
 
 
-    const response = await fetch("http://localhost:3000/blogs", {
+    const response = await fetch("http://localhost:4000/api/products", {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -19,9 +19,9 @@ export const getBlogs = async () => {
     return data;
 };
 
-export const deleteBlog = async (id: number) => {
+export const deleteProduct = async (id: number) => {
     const token = getToken();
-    const response = await fetch(`http://localhost:3000/blogs/${id}`, {
+    const response = await fetch(`http://localhost:4000/api/products/${id}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${token}`
@@ -34,9 +34,9 @@ export const deleteBlog = async (id: number) => {
     return true;
 };
 
-export const createBlog = async (title: string, content: string) => {
+export const createProducts = async (title: string, content: string) => {
     const token = getToken();
-    const response = await fetch("http://localhost:3000/blogs", {
+    const response = await fetch("http://localhost:4000/api/products", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export const createBlog = async (title: string, content: string) => {
 
 export const updateBlog = async (id: number, title: string, content: string) => {
     const token = getToken();
-    const response = await fetch(`http://localhost:3000/blogs/${id}`, {
+    const response = await fetch(`http://localhost:4000/api/products/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
