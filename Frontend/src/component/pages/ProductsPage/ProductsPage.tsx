@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getProducts } from "../../../services/product.service";
 import { Link } from "react-router";
+import heart from "../../../assets/mdi_heart-outline.svg";
 
 
 type Product = {
@@ -48,7 +49,7 @@ export const ProductsPage = () => {
                         <p className="error text-red-600 ">{error}</p>
 
                         <div data-property-1="Default" className="size-6 left-215 top-11 absolute">
-                            <img src="mdi_heart-outline.svg" alt="Favorit hjerte" className="size-5 left-90 top-0.75 absolute" />
+                            <img src={heart} alt="Favorit hjerte" className="size-5 left-90 top-0.75 absolute" />
                         </div>
                     </div>
 

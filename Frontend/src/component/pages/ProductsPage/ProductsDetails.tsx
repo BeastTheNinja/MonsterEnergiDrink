@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { getProductById } from "../../../services/product.service";
+import heart from "../../../assets/mdi_heart-outline.svg";
 
 type Product = {
     id: number;
@@ -65,6 +66,10 @@ export const ProductsDetailsPage = () => {
                     <p className="right-0 top-40 absolute justify-start text-white text-xl font-normal font-['Monaco']">
                         Stock: {product.stock}
                     </p>
+                    <div data-property-1="Default" className="size-6 left-215 top-11 absolute">
+                        <img src={heart} alt="Favorit hjerte" className="size-5 left-90 top-0.75 absolute" />
+                    </div>
+
                 </div>
             </div>
         </div>

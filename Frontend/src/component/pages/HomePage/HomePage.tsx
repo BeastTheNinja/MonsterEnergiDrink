@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { getProducts } from "../../../services/product.service";
+import football from "../../../assets/Football.svg";
+import heart from "../../../assets/mdi_heart-outline.svg";
 
 
 type Product = {
@@ -37,7 +39,7 @@ export const HomePage = () => {
             <div className="box-content flex justify-center">
                 <img
                     className="Football w-full"
-                    src="Football.svg"
+                    src={football}
                     alt="en fodbold spiller sparker en bold"
                 />
             </div>
@@ -52,7 +54,7 @@ export const HomePage = () => {
                         <p className="error text-red-600 ">{error}</p>
 
                         <div data-property-1="Default" className="size-6 left-215 top-11 absolute">
-                            <img src="mdi_heart-outline.svg" alt="Favorit hjerte" className="size-5 left-90 top-0.75 absolute" />
+                            <img src={heart} alt="Favorit hjerte" className="size-5 left-90 top-0.75 absolute" />
                         </div>
                     </div>
 
