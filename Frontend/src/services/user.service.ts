@@ -1,12 +1,17 @@
 import { getToken } from "./auth.service";
 
-export const getUsers = async () => {
-    const token = getToken();
+const API_URL = "http://localhost:4000/api/users";
 
-    const response = await fetch("http://localhost:3000/users", {
+const getAuthHeaders = (): Record<string, string> => {
+    const token = getToken();
+    return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
+export const getUsers = async () => {
+    const response = await fetch(API_URL, {
         headers: {
-            Authorization: `Bearer ${token}`
-        }
+            ...getAuthHeaders(),
+        },
     });
 
     const data = await response.json();
@@ -19,13 +24,11 @@ export const getUsers = async () => {
 };
 
 export const deleteUser = async (id: number) => {
-    const token = getToken();
-
-    const response = await fetch(`http://localhost:3000/users/${id}`, {
+    const response = await fetch(`${API_URL}/${id}`, {
         method: "DELETE",
         headers: {
-            Authorization: `Bearer ${token}`
-        }
+            ...getAuthHeaders(),
+        },
     });
 
     if (!response.ok) {

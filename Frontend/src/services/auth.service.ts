@@ -1,91 +1,80 @@
 import { jwtDecode } from "jwt-decode";
 
-
 const API_URL = "http://localhost:4000";
 
 type JwtDecoded = {
-    userId: number;
-    email: string;
-    role: "USER" | "ADMIN";
-}
-
-
-export const getToken = () => {
-    return localStorage.getItem("token");
+    exp: number;
+    data: {
+        id: number;
+    };
 };
-export const refreshToken = async () => {
-    const token = getToken();
 
-    if (!token) {
-        throw new Error("No token found");
-    }
-}
-export const setRefreshToken = (refreshToken: string) => {
-    localStorage.setItem("refreshToken", refreshToken);
-}
+export const getToken = () => localStorage.getItem("token");
+export const getRefreshToken = () => localStorage.getItem("refreshToken");
 
 export const setToken = (token: string) => {
     localStorage.setItem("token", token);
 };
 
+export const setRefreshToken = (refreshToken: string) => {
+    localStorage.setItem("refreshToken", refreshToken);
+};
+
 export const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
 };
 
-export const isLoggedIn = () => {
-    return !!localStorage.getItem("token");
-};
-
-export const getRole = () => {
-    const token = getToken();
-
-    if (!token) return null;
-
-    const decoded = jwtDecode<JwtDecoded>(token);
-
-    return decoded.role;
-}
-
-
-export const login = async (email: string, password: string) => {
+export const login = async (username: string, password: string) => {
     const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ username, password }),
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-        throw new Error(data.error || "Login failed");
+        throw new Error(data.message || "Login failed");
     }
 
-    setToken(data.token);
+    setToken(data.accessToken);
+    setRefreshToken(data.refreshToken);
+
     return data;
 };
 
+export const refreshToken = async () => {
+    const refreshToken = getRefreshToken();
 
-export const register = async (payload: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-}) => {
-    const response = await fetch(`${API_URL}/api/auth/register`, {
+    if (!refreshToken) {
+        throw new Error("No refresh token found");
+    }
+
+    const response = await fetch(`${API_URL}/api/auth/refresh`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ refreshToken }),
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-        throw new Error(data.error || "Register failed");
+        throw new Error(data.message || "Token refresh failed");
     }
 
-    return data;
+    setToken(data.accessToken);
+    return data.accessToken;
+};
+
+export const getUserIdFromToken = () => {
+    const token = getToken();
+    if (!token) return null;
+
+    const decoded = jwtDecode<JwtDecoded>(token);
+    return decoded.data.id;
 };

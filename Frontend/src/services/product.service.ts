@@ -1,69 +1,96 @@
 import { getToken } from "./auth.service";
 
-export const getProducts = async () => {
+const API_URL = "http://localhost:4000/api/products";
+
+const getAuthHeaders = (): Record<string, string> => {
     const token = getToken();
+    return token ? { Authorization: `Bearer ${token}` } : {};
+};
 
-
-    const response = await fetch("http://localhost:4000/api/products", {
+export const getProducts = async () => {
+    const response = await fetch(API_URL, {
         headers: {
-            Authorization: `Bearer ${token}`
-        }
+            ...getAuthHeaders(),
+        },
     });
-
 
     const data = await response.json();
 
     if (!response.ok) {
-        throw new Error(data.error || "Failed to fetch blogs");
+        throw new Error(data.error || "Failed to fetch products");
     }
+
     return data;
 };
 
 export const deleteProduct = async (id: number) => {
-    const token = getToken();
-    const response = await fetch(`http://localhost:4000/api/products/${id}`, {
+    const response = await fetch(`${API_URL}/${id}`, {
         method: "DELETE",
         headers: {
-            Authorization: `Bearer ${token}`
-        }
+            ...getAuthHeaders(),
+        },
     });
+
+    const data = await response.json();
+
     if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to delete blog");
+        throw new Error(data.error || "Failed to delete product");
     }
+
     return true;
 };
 
-export const createProducts = async (title: string, content: string) => {
-    const token = getToken();
-    const response = await fetch("http://localhost:4000/api/products", {
+export const createProduct = async (payload: {
+    name: string;
+    image: string;
+    description: string;
+    price: number;
+    stock: number;
+    isActive: boolean;
+}) => {
+    const response = await fetch(API_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
+            ...getAuthHeaders(),
         },
-        body: JSON.stringify({ title, content })
+        body: JSON.stringify(payload),
     });
+
     const data = await response.json();
+
     if (!response.ok) {
-        throw new Error(data.error || "Failed to create blog");
+        throw new Error(data.error || "Failed to create product");
     }
+
     return data;
 };
 
-export const updateBlog = async (id: number, title: string, content: string) => {
-    const token = getToken();
-    const response = await fetch(`http://localhost:4000/api/products/${id}`, {
+export const updateProduct = async (
+    id: number,
+    payload: {
+        name: string;
+        image: string;
+        description: string;
+        price: number;
+        stock: number;
+        isActive: boolean;
+    }
+) => {
+    const response = await fetch(`${API_URL}/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
+            ...getAuthHeaders(),
         },
-        body: JSON.stringify({ title, content })
+        body: JSON.stringify(payload),
     });
+
     const data = await response.json();
+
     if (!response.ok) {
-        throw new Error(data.error || "Failed to update blog");
+        throw new Error(data.error || "Failed to update product");
     }
+
     return data;
 };
