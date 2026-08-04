@@ -1,21 +1,21 @@
 import { Link } from "react-router"
 
-
 export const NavBar = () => {
-
     return (
-        <>
-
-            <div className="navbar h-15  flex items-center justify-between px-4 py-2 border-b-[#94C83D] border-b mb-15">
-                <div className="logo max-w-45 h-10">
+        <div className="navbar relative">
+            <div className="flex items-center justify-between  pt-10">
+                <div className="logo max-w-65 -mb-10 z-10">
                     <img src="Monster Logo.svg" alt="Monster Logo" />
                 </div>
-                <div className="nav-links flex gap-4 justify-end font-bold text-lg">
-                    <Link to="/" className="text-white hover:text-[#94C83D]">Home</Link>
-                    <Link to="/products" className="text-white hover:text-[#94C83D]">Products</Link>
-                    <Link to="/login" className="text-white hover:text-[#94C83D]">Login</Link>
+
+                <div className="flex gap-6 font-bold text-lg">
+                    <Link to="/">Forside</Link>
+                    <Link to="/products">Produkter</Link>
+                    <Link to="/login">Login</Link>
                 </div>
             </div>
-        </>
+
+            <div className="ml-25 border-b border-[#94C83D] mb-5"></div>
+        </div>
     )
 }
