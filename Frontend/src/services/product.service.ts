@@ -22,6 +22,21 @@ export const getProducts = async () => {
 
     return data;
 };
+export const getProductById = async (id: number) => {
+    const response = await fetch(`${API_URL}/${id}`, {
+        headers: {
+            ...getAuthHeaders(),
+        },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.error || "Failed to fetch product");
+    }
+
+    return data;
+};
 
 export const deleteProduct = async (id: number) => {
     const response = await fetch(`${API_URL}/${id}`, {

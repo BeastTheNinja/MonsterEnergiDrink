@@ -1,4 +1,5 @@
 import { NavLink } from "react-router"
+import monsterlogo from "../assets/MonsterLogo.svg"
 
 export const NavBar = () => {
     const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -8,7 +9,7 @@ export const NavBar = () => {
         <div className="navbar relative">
             <div className="flex items-center justify-between pt-10">
                 <div className="logo max-w-65 -mb-10 z-10">
-                    <img src="Monster Logo.svg" alt="Monster Logo" />
+                    <img src={monsterlogo} alt="Monster Logo" />
                 </div>
 
                 <div className="flex gap-6 font-bold text-lg">
