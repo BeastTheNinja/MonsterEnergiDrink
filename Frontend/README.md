@@ -1,75 +1,53 @@
-# React + TypeScript + Vite
+# Monster Energy Drink Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dette er frontend-delen af Monster Energy Drink projektet. Den er bygget med React, TypeScript og Vite, og den henter data fra et separat backend API.
 
-Currently, two official plugins are available:
+## Teknologier
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React
+- TypeScript
+- Vite
+- React Router
+- Tailwind CSS
+- Fetch API
 
-## React Compiler
+## Formål
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Frontend viser produkter fra Monster API'et, og der arbejdes videre med funktioner som login, produktdetaljer, favoritter og produktoprettelse.
 
-## Expanding the ESLint configuration
+## Kør projektet
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Installer dependencies i frontend-mappen.
+2. Start udviklingsserveren.
+3. Sørg for, at backend API'et kører på localhost:4000.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Struktur
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### component
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Indeholder genbrugelige komponenter som navbar og pages.
 
-```
+### pages
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Indeholder skærmbilleder som HomePage, LoginPage og ProductsPage.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### services
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Indeholder API-kald til authentication, produkter og brugere.
 
-```
+## API-forbindelse
+
+Frontend kommunikerer med backend via fetch-kald til:
+
+- <http://localhost:4000/api/auth>
+- <http://localhost:4000/api/products>
+- <http://localhost:4000/api/users>
+- <http://localhost:4000/api/favorites>
+
+Tokens gemmes i localStorage og bruges til autoriserede requests.
+
+## Vigtige noter
+
+- Login bruger access token og refresh token.
+- Produktdata kommer fra backend API'et.
+- Frontend er lavet til at kunne udbygges med flere komponenter og funktioner.
