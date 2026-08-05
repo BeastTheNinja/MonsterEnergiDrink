@@ -19,9 +19,28 @@ export const NavBar = () => {
                     <NavLink to="/products" className={linkClass}>
                         Produkter
                     </NavLink>
-                    <NavLink to="/login" className={linkClass}>
-                        Login
-                    </NavLink>
+
+                    {/* tjek om brugeren er logget ind, hvis ja så vis profil ellers login */}
+
+                    {localStorage.getItem("token") ? (
+                        <>
+                            <NavLink to="/UserProfile" className={linkClass}>
+                                Profil
+                            </NavLink>
+                            <NavLink to="/logout" className={linkClass}>
+                                Logout
+                            </NavLink>
+                        </>
+                    ) : (
+                        <>
+                            <NavLink to="/login" className={linkClass}>
+                                Login
+                            </NavLink>
+                            <NavLink to="/register" className={linkClass}>
+                                Opret bruger
+                            </NavLink>
+                        </>
+                    )}
                 </div>
             </div>
 

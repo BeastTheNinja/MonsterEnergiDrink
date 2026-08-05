@@ -28,21 +28,29 @@ export const logout = () => {
 export const login = async (username: string, password: string) => {
     const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
     });
 
-    const data = await response.json();
+    const text = await response.text();
+
+    let data: any;
+    try {
+        data = text ? JSON.parse(text) : {};
+    } catch {
+        data = { message: text };
+    }
 
     if (!response.ok) {
-        throw new Error(data.message || "Login failed");
+        const msg =
+            response.status === 401
+                ? "Forkert email eller adgangskode."
+                : data?.message || "Login fejlede. Prøv igen senere.";
+        throw new Error(msg);
     }
 
     setToken(data.accessToken);
     setRefreshToken(data.refreshToken);
-
     return data;
 };
 
@@ -55,9 +63,7 @@ export const refreshToken = async () => {
 
     const response = await fetch(`${API_URL}/api/auth/refresh`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refreshToken }),
     });
 
@@ -78,3 +84,4 @@ export const getUserIdFromToken = () => {
     const decoded = jwtDecode<JwtDecoded>(token);
     return decoded.data.id;
 };
+
