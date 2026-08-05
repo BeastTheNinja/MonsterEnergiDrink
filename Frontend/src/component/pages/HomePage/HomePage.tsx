@@ -36,13 +36,13 @@ export const HomePage = () => {
 
     return (
         <div className="home-page">
-            <div className="box-content flex justify-center">
+            <header className="box-content flex justify-center">
                 <img
                     className="Football w-full"
                     src={football}
                     alt="en fodbold spiller sparker en bold"
                 />
-            </div>
+            </header>
             <div className="box-content mt-20 ">
                 {products.slice(0, 3).map((product) => (
                     <div key={product.id} data-property-1="Default" className="w-auto h-50 relative border-b border-lime-400/50 overflow-hidden">
