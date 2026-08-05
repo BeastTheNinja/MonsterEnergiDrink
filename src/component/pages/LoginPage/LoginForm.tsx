@@ -68,12 +68,14 @@ export const LoginForm = () => {
                         id="password"
                         name="password"
                         value={password}
+                        aria-label="Password"
+                        autoComplete="current-password"
                         onChange={(e) => setPassword(e.target.value)}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     />
-                </div>
-                {error && <p className="text-red-500 mb-3">{error}</p>}
+                {error && <p className="text-red-500 mb-3 max-w-50">{error}</p>}
                 {success && <p className="text-green-500 mb-3">Login lykkedes.</p>}
+                </div>
                 <div className="flex items-center justify-between">
                     <button
                         type="submit"
