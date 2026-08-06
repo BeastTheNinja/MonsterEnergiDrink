@@ -24,7 +24,7 @@ export const NavBar = () => {
 
                     {localStorage.getItem("token") ? (
                         <>
-                            <NavLink to="/UserProfile" className={linkClass}>
+                            <NavLink to="/userProfile" className={linkClass}>
                                 Profil
                             </NavLink>
                             <NavLink to="/logout" className={linkClass}>

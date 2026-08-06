@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { login } from "../../../services/auth.service";
+import { useNavigate } from "react-router";
 
 export const LoginForm = () => {
     const [email, setEmail] = useState("");
@@ -8,6 +9,7 @@ export const LoginForm = () => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -17,8 +19,11 @@ export const LoginForm = () => {
 
         try {
             const res = await login(email, password); // forvent { token } eller throw
+
             console.log(res);
-            
+
+            navigate("/UserProfile");
+
         } catch (err) {
             console.error("Login error (raw):", err);
             const raw = err instanceof Error ? err.message : String(err);
@@ -31,6 +36,7 @@ export const LoginForm = () => {
             setLoading(false);
         }
     }
+
 
     return (
         <div className="login-form flex flex-col items-center justify-center  ">

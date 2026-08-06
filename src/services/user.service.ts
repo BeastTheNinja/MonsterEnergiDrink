@@ -38,3 +38,27 @@ export const deleteUser = async (id: number) => {
 
     return true;
 };
+
+export const registerUser = async (userData: {
+    name: string;
+    email: string;
+    password: string;
+    refreshToken: string;
+    isActive: boolean;
+}) => {
+    const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.error || "Failed to register user");
+    }
+
+    return data;
+};
