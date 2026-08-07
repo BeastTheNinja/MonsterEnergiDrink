@@ -1,7 +1,9 @@
 import { NavLink } from "react-router"
 import monsterlogo from "../assets/MonsterLogo.svg"
+import { useNavigate } from "react-router"
 
 export const NavBar = () => {
+    const navigate = useNavigate()
     const linkClass = ({ isActive }: { isActive: boolean }) =>
         isActive ? "text-[#94C83D]" : "text-white"
 
@@ -27,9 +29,16 @@ export const NavBar = () => {
                             <NavLink to="/userProfile" className={linkClass}>
                                 Profil
                             </NavLink>
-                            <NavLink to="/logout" className={linkClass}>
-                                Logout
-                            </NavLink>
+                            {/*  */}
+
+                            <button
+                                onClick={() => {
+                                    localStorage.removeItem("token")
+                                    navigate("/login")
+                                }}
+                            >
+                                Log ud
+                            </button>
                         </>
                     ) : (
                         <>

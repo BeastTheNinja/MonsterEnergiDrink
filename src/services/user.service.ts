@@ -22,6 +22,21 @@ export const getUsers = async () => {
 
     return data;
 };
+export const getUserById = async (id: number) => {
+    const response = await fetch(`${API_URL}/${id}`, {
+        headers: {
+            ...getAuthHeaders(),
+        },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.error || "Failed to fetch user");
+    }
+
+    return data;
+}
 
 export const deleteUser = async (id: number) => {
     const response = await fetch(`${API_URL}/${id}`, {
@@ -62,3 +77,26 @@ export const registerUser = async (userData: {
 
     return data;
 };
+
+export const updateUser = async (id: number, userData: Partial<{
+    password: string;
+    isActive: boolean;
+}>) => {
+    const response = await fetch(`${API_URL}/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeaders(),
+        },
+        body: JSON.stringify(userData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.error || "Failed to update user");
+    } 
+    return data;
+
+
+}

@@ -6,6 +6,7 @@ import { ProductsPage } from './component/pages/ProductsPage/ProductsPage'
 import { ProductsDetailsPage } from './component/pages/ProductsPage/ProductsDetails'
 import { LoginPage } from './component/pages/LoginPage/LoginPage'
 import { RegisterPage } from './component/pages/RegisterPage/RegisterPage'
+import { UserProfile } from './component/pages/UserProfile/UserProfile'
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
           <Route path="/products/:id" element={<ProductsDetailsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/userProfile" element={<h1>User Profile</h1>} />
+          <Route path="/userProfile" element={<UserProfile />} />
           <Route path="*" element={<h1 className="flex justify-center content-center text-red-600 h-auto w-auto box-content">404 - Page Not Found</h1>} />
         </Routes>
       </BrowserRouter>

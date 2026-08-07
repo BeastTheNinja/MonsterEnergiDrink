@@ -22,7 +22,7 @@ export const LoginForm = () => {
 
             console.log(res);
 
-            navigate("/UserProfile");
+            navigate("/userProfile");
 
         } catch (err) {
             console.error("Login error (raw):", err);
